@@ -1,0 +1,202 @@
+description: ITDFN + EMA cl
+
+trainset: mr
+valset: ct
+
+seed: 88
+
+# data
+size_C: 1
+size_H: 256
+size_W: 256
+n_class: 5
+
+# model
+seg_model:
+  activation: leaky_relu # leaky_relu relu
+  normlization: InstanceNorm
+  init:
+    init_type: kaiming
+    init_gain: 0.02
+    init_a: 0.2
+  optimizer:
+    name: 'Adam'
+    lr: 0.0002
+    weight_decay: 0.00005
+    betas: [0.9, 0.99]
+decoder:
+  activation: leaky_relu # relu
+  normlization: InstanceNorm
+  init:
+    init_type: kaiming
+    init_gain: 0.02
+    init_a: 0.2
+  optimizer:
+    name: 'Adam'
+    lr: 0.0002
+    # weight_decay: 0
+    betas: [0.5, 0.99]
+discriminator:
+  activation: leaky_relu # relu
+  normlization: InstanceNorm
+  init:
+    init_type: kaiming
+    init_gain: 0.02
+    init_a: 0.2
+  optimizer:
+    name: 'Adam'
+    lr: 0.0001
+    # weight_decay: 0
+    betas: [0.5, 0.99]
+domain_classifier:
+  activation: leaky_relu # relu
+  normlization: BatchNorm
+  init:
+    init_type: kaiming
+    init_gain: 0.02
+    init_a: 0.2
+  optimizer:
+    name: 'Adam'
+    lr: 0.0001
+    # weight_decay: 0
+    betas: [0.9, 0.99]
+
+data:
+    mr:
+      test_list: data/datalist/test_mr.txt
+    ct:
+      test_list: data/datalist/test_ct.txt
+    source:
+        name: mr
+        rootpath: data/datalist/training_mr.txt
+        test_list: data/datalist/test_mr.txt
+        size_H: 256
+        size_W: 256
+        batch_size: 8
+        shuffle: True
+        n_class: 5
+        param1: -1.8
+        param2: 4.4
+        is_transform: False
+        aug_p: 0.5
+    target:
+        name: ct
+        rootpath: data/datalist/training_ct.txt
+        test_list: data/datalist/test_ct.txt
+        size_H: 256
+        size_W: 256
+        batch_size: 8
+        shuffle: True
+        n_class: 5
+        param1: -2.8
+        param2: 3.2
+        is_transform: False
+        transforms: 
+          zoom: [0.65, 1.0]
+        aug_p: 0.5
+    source_valid:
+        name: mr
+        rootpath: data/datalist/validation_mr.txt
+        size_H: 256
+        size_W: 256
+        batch_size: 1
+        n_class: 5
+        shuffle: False
+        param1: -1.8
+        param2: 4.4
+    target_valid:
+        name: ct
+        rootpath: data/datalist/validation_ct.txt
+        size_H: 256
+        size_W: 256
+        batch_size: 1
+        shuffle: False
+        n_class: 5
+        param1: -2.8
+        param2: 3.2
+
+    num_workers: 4
+    n_class: 5
+
+training:
+    # base options
+    n_epoches: 20
+    train_iters: 24000
+    val_interval: 1200
+    print_interval: 40
+    n_workers: 4
+    pool_size: 50
+
+    # training objective trade-off lambda
+    # seg lambda
+    lambda_aux_seg: 0.1
+
+    # seg adv lambda
+    lambda_adv_p: 0.003
+    lambda_adv_aux_p: 0.
+    lambda_adv_tp: 0.
+    lambda_adv_aux_tp: 0.
+    start_adv_p: -1
+
+    # bidirectional lambda
+    lambda_s2t_seg: 1.0
+    lambda_adv_image_s: 0.01
+    lambda_adv_image_t: 0.01
+    lambda_cycle_s: 2.0
+    lambda_cycle_t: 2.0
+    lambda_id_s: 1.0
+    lambda_id_t: 1.0
+    lambda_detach_cyc: True
+
+    # consis lambda
+    lambda_consis_pred: 0.
+    consis_pred_start_step: -1
+
+    # contrastive lambda
+    contrast: True
+    print_pos_neg_hist: 300
+    proj_dim: 128
+    temperature: 0.5
+    base_temperature: 1.0
+    max_samples: 1024
+    max_views_bg: 10
+    max_views: 20
+    dtm_perc: 5     # this means pixels 30% around the boundary will be seen as boundary pixel, while outside 30% boundary is inside the mask
+    target_dtm_perc: 30
+    target_boundary_sel: False  # whether to select boundary pixels for target domain
+    target_max_views_bg: 10
+    target_max_views: 20
+    random_samples: 8000   # pixels selected from the memory bank
+    pixel_memory_size: 24000
+    pixel_update_freq_bg: 10  # background category pixels update the memory bank
+    pixel_update_freq_fg: 20  # foreground category pixels update the memory bank
+    ema_net_momentum: 0.999
+    stride: 8
+    lambda_contrast: 0.1
+    target_lambda_contrast: 0.8
+    mem_start_step: 7000
+    contrast_start_step: 6000
+    lambda_ema_t_fake_S_consis: 0.1  # the target segmenation consistency
+    use_ema_fake_S_consis: True
+
+    # tsne visualization parameters
+    tsne: False
+    tsne_samples: 500
+    tsne_memory_size: 12000
+
+    # whether to open weight/grad histogram
+    histogram: True
+
+    lr_schedule:
+        # name: 'multi_step'
+        # milestones: [20000, 110000]
+        # gamma: 0.1
+        lr_decay_start_step: 0
+        lr_min_rate: 0.01
+        # name: 'constant_lr'
+    resume: pretrained/from_mr_to_ct_on_deeplab101_best_model_warmup.pkl
+    Pred_resume: pretrained/from_mr_to_ct_on_deeplab101_best_model_warmup.pkl
+    # save_path: /home/qzha2506/zhangqiming/ZQMPro/domain-adapt/ablation
+    optimizer_resume: False #True
+    gan_resume: False
+    resume_flag: False
