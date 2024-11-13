@@ -48,7 +48,6 @@ class AdaptationModel():
         self.gan_loss = GANLoss()
         self.cycle_loss = torch.nn.L1Loss()
         self.identity_loss = torch.nn.L1Loss()
-        self.contrast_loss_imgmem = PixelContrastLossImgMem(self.config, self.writer)
         self.contrast_loss = PixelContrastLoss(self.config, self.writer, self.visual)
         self.contrast_loss_pixelmem = PixelContrastLossMem(self.config, self.writer, self.visual)
 

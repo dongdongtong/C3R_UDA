@@ -1,6 +1,6 @@
 # C3R_UDA
 
-Implementation for the paper entitled "C$^3$R: Category Contrastive Adaptation and Consistency Regularization for Cross-Modality Medical Image Segmentation"
+Implementation for the paper entitled "C$^3$R: Category Contrastive Adaptation and Consistency Regularization for Cross-Modality Medical Image Segmentation" (Under reivew in ESWA).
 
 ## Table of Contents
 
