@@ -1,6 +1,6 @@
 # C3R_UDA
 
-Implementation for the paper entitled "C$^3$R: Category Contrastive Adaptation and Consistency Regularization for Cross-Modality Medical Image Segmentation" (Under reivew in ESWA).
+Implementation for the paper entitled "C$^3$R: Category Contrastive Adaptation and Consistency Regularization for Cross-Modality Medical Image Segmentation" (Accepted by ESWA).
 
 ## Table of Contents
 
@@ -117,7 +117,15 @@ python run_eval.py --target mr  --model_path pretrained_ct2mr.pt  # for ct2mr
 
 If you find the code useful for your research, please cite:
 ```
-To be updated.
+@article{ding2025c3r,
+  title={C3R: Category contrastive adaptation and consistency regularization for cross-modality medical image segmentation},
+  author={Ding, Shaodong and Liu, Ziyang and Liu, Pan and Zhu, Wanlin and Xu, Hong and Li, Zixiao and Niu, Haijun and Cheng, Jian and Liu, Tao},
+  journal={Expert Systems with Applications},
+  volume={269},
+  pages={126304},
+  year={2025},
+  publisher={Elsevier}
+}
 ```
 
 ## Acknowledgement
