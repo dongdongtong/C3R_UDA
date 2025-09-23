@@ -8,6 +8,8 @@ Implementation for the paper entitled "C<sup>3</sup>R: Category Contrastive Adap
   - [Table of Contents](#table-of-contents)
   - [Environment requirements](#environment-requirements)
   - [Dataset](#dataset)
+    - [For MMWHS dataset](#for-mmwhs-dataset)
+    - [For AbdomenCT-MR dataset](#for-abdomenct-mr-dataset)
   - [Project Tree](#project-tree)
   - [Training](#training)
   - [Evaluation](#evaluation)
@@ -39,6 +41,7 @@ tqdm==4.46.0
 
 Some steps to prepare the dataset:
 
+### For MMWHS dataset
 1. Download the preprocessed data from [SIFA](https://github.com/cchen-cc/SIFA).
 2. Decode the `tfrecords` data to `npz` data using the preprocessing code as:
 
@@ -48,6 +51,11 @@ Some steps to prepare the dataset:
 
 3. Please move the decoded data to the `data` folder.
 
+### For AbdomenCT-MR dataset
+Download it and the preprocessing script at [Baidu Net Disk](https://pan.baidu.com/s/15Lm4SfyUkH5C9-AYnQf1zA?pwd=h6js), Code: h6js.
+Our data split is consistent with [SIFA](https://github.com/cchen-cc/SIFA).
+
+NOTE: Please cite the corresponding dataset paper if you use them.
 
 
 ## Project Tree
