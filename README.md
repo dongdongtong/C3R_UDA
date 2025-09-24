@@ -46,16 +46,18 @@ Some steps to prepare the dataset:
 2. Decode the `tfrecords` data to `npz` data using the preprocessing code as:
 
 ```
-    python preprocess.py --data_dir./data --save_dir./data
+    python preprocess.py --data_dir ./data --save_dir ./data
 ```
+You can also use the preprocessed data we provide at [Google Drive](https://drive.google.com/file/d/1Dl17I8wgL9Uk2VupqZezC7UBccXDBkVa/view?usp=sharing),
+or [Baidu Net Disk](https://pan.baidu.com/s/1-tbcWOmx_pl5LmqleDhJMA?pwd=mg68), Code: mg68.
 
-3. Please move the decoded data to the `data` folder.
+1. Please move the decoded data to the `data` folder.
 
 ### For AbdomenCT-MR dataset
 Download it and the preprocessing script at [Baidu Net Disk](https://pan.baidu.com/s/15Lm4SfyUkH5C9-AYnQf1zA?pwd=h6js), Code: h6js.
 Our data split is consistent with [SIFA](https://github.com/cchen-cc/SIFA).
 
-NOTE: Please cite the corresponding dataset paper if you use them.
+**NOTE: Please cite the corresponding dataset paper if you use them.**
 
 
 ## Project Tree
